@@ -1,6 +1,8 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_controller.dart';
+import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_graph_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/widgets/timer.dart';
 
 class Occupancy extends ConsumerWidget {
@@ -41,12 +43,16 @@ class Occupancy extends ConsumerWidget {
                 ),
                 ],
                 ),
-                TimerWidget(key: ValueKey(data), startDate: data.$1)
+                TimerWidget(key: ValueKey(data), startDate: data.$1),
                 ],
                 );
       },
     loading: () {
-      return const CircularProgressIndicator();
+      return SizedBox(
+        height: size + extra,
+        width: size + extra,
+        child: const CircularProgressIndicator()
+      );
     },
     error: (error, stacktrace) {
       return const Icon(Icons.error);

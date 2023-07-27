@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_graph_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/occupancy_screen.dart';
 import 'package:gym_occupancy/main.dart';
 
@@ -21,12 +22,15 @@ class App extends ConsumerStatefulWidget {
 }
 
 class _AppState extends ConsumerState<App> {
+  
   @override
   Widget build(BuildContext context) {
+
+
     final darkTheme = ref.watch(darkThemeProvider);
     return MaterialApp(
       theme: widget.buildTheme(darkTheme),
-      home: OccupancyScreen(),
+      home: const OccupancyScreen(),
     );
   }
 }
