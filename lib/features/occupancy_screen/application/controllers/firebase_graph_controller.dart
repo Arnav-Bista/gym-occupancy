@@ -29,8 +29,6 @@ class FirebaseGraphController extends StateNotifier<AsyncValue<List<(DateTime, i
     }
     final dataSnap = data.value as Map<dynamic, dynamic>;
     dataSnap.forEach((key, value) {
-      // RegExpMatch match = regex.firstMatch(key!)!;
-      // String time = match.group(1)!;
       DateTime date = DateFormat("dd-MM-yyyy HH:mm:ss").parse(key);
       int occupancy = value as int;
       dataPoints.add((date,occupancy));

@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,19 +49,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDey9OomewDjDPkKu94Z9GtbJN7QgU5_VA',
-    appId: '1:865790848249:web:ae00f6559dae9335ebc628',
-    messagingSenderId: '865790848249',
-    projectId: 'gym-occupancy-d90d0',
-    authDomain: 'gym-occupancy-d90d0.firebaseapp.com',
-    databaseURL: 'https://gym-occupancy-d90d0-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'gym-occupancy-d90d0.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB9Sqy-ePpAtOC6DX0J8g0qxfC8P_no_rM',
-    appId: '1:865790848249:android:328340b0db98837cebc628',
+    apiKey: 'AIzaSyAYD9kbgvpSmJc342ap7lOmTG7l3DWFzWM',
+    appId: '1:865790848249:android:5c83c556a42935faebc628',
     messagingSenderId: '865790848249',
     projectId: 'gym-occupancy-d90d0',
     databaseURL: 'https://gym-occupancy-d90d0-default-rtdb.europe-west1.firebasedatabase.app',
@@ -63,24 +59,13 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyChu3e8pVQIa80OUxACbgUS8fotQbRmpHg',
-    appId: '1:865790848249:ios:5adab5b46ea8f335ebc628',
+    apiKey: 'AIzaSyABqhfjFnhSLr2-xkwkMPLuLSdDbjCc6Wc',
+    appId: '1:865790848249:ios:c8ec37f06f5bc4bfebc628',
     messagingSenderId: '865790848249',
     projectId: 'gym-occupancy-d90d0',
     databaseURL: 'https://gym-occupancy-d90d0-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'gym-occupancy-d90d0.appspot.com',
     iosClientId: '865790848249-p87tbjstndqc92qs3r27cai5b5ltpp1o.apps.googleusercontent.com',
     iosBundleId: 'com.example.gymOccupancy',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyChu3e8pVQIa80OUxACbgUS8fotQbRmpHg',
-    appId: '1:865790848249:ios:b41985324dd3f0b1ebc628',
-    messagingSenderId: '865790848249',
-    projectId: 'gym-occupancy-d90d0',
-    databaseURL: 'https://gym-occupancy-d90d0-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'gym-occupancy-d90d0.appspot.com',
-    iosClientId: '865790848249-rmdrosumtaet2dqjjb83aofhe2nba38t.apps.googleusercontent.com',
-    iosBundleId: 'com.example.gymOccupancy.RunnerTests',
   );
 }

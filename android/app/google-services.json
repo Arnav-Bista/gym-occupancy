@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "865790848249",
+    "firebase_url": "https://gym-occupancy-d90d0-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "gym-occupancy-d90d0",
+    "storage_bucket": "gym-occupancy-d90d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865790848249:android:5c83c556a42935faebc628",
+        "android_client_info": {
+          "package_name": "com.example.gym_occupancy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865790848249-qn9luvvucmedf331otuei1acijnq9jgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYD9kbgvpSmJc342ap7lOmTG7l3DWFzWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865790848249-qn9luvvucmedf331otuei1acijnq9jgg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "865790848249-p87tbjstndqc92qs3r27cai5b5ltpp1o.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gymOccupancy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
