@@ -22,6 +22,7 @@ class _TimerWidgetState extends State<TimerWidget> {
   String text = "";
   int seconds = 0;
   int minutes = 0;
+  int hours = 0;
 
   void startSecondsTimer() {
     secondsTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -40,8 +41,10 @@ class _TimerWidgetState extends State<TimerWidget> {
   void initState() {
     super.initState();
     final now = ukDateTimeNow();
-    minutes = (now.hour - widget.startDate.hour) * 60 + now.minute - widget.startDate.minute;
-    seconds = now.second - widget.startDate.second;
+    final difference = now.difference(ukDateTimeParse(widget.startDate));
+    hours = difference.inHours;
+    minutes = difference.inMinutes % 60;
+    seconds = difference.inSeconds % 60;
     if(seconds < 0) {
       minutes -= 1;
       seconds += 60;
@@ -59,6 +62,8 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Text("Last updated $minutes minutes $seconds seconds ago");
+    return hours == 0 
+        ? Text("Last updated $minutes minute${minutes == 1 ? "" : "s"} and $seconds second${seconds == 1 ? "" : "s"} ago")
+        : Text("Last updated $hours hour${hours == 1 ? "" : "s"} and $minutes minute${minutes == 1 ? "" : "s"} ago");
   }
 }

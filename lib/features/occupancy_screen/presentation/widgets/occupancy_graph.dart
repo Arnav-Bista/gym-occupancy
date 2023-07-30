@@ -1,6 +1,6 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_graph_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/widgets/graph.dart';
 
@@ -10,20 +10,24 @@ class OccupancyGraph extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(firebaseGraphController);
-    return data.when(
+    List<(DateTime, int)> graphData = [];
+    data.when(
       data: (data) {
-        return SizedBox(
-          height: 200,
-          width: 500,
-          child: Graph(data:data)
-        );
+        graphData = data;
       },
       loading: () {
-        return const CircularProgressIndicator();
+        graphData = [];
+        // return const CircularProgressIndicator();
       },
       error: (error, stacktrace) {
-        return const Icon(Icons.error);
+        graphData = [];
+        // return const Icon(Icons.error);
       }
+    );
+    return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.2,
+          width: MediaQuery.of(context).size.width * 1,
+          child: Graph(data:graphData)
     );
   }
 }

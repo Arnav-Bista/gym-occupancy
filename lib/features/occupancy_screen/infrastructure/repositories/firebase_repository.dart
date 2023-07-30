@@ -10,6 +10,7 @@ abstract class IFirebaseRepository {
   DatabaseReference getLatestReference();
   DatabaseReference getScheduleReference(bool returnStart);
   DatabaseReference getCurrentDayDataReference();
+  DatabaseReference getPreviousDayDataReference();
 
 }
 
@@ -23,6 +24,7 @@ class FirebaseRepository extends IFirebaseRepository {
       final start = now.subtract(Duration(days: now.weekday - 1));
       return start;
   }
+
 
   @override
     Future<int> getOccupancy() async {
@@ -55,4 +57,13 @@ class FirebaseRepository extends IFirebaseRepository {
       String url = "scrape_data/${datetimeToDate.format(weekStart)}/data/${now.weekday - 1}";
       return _firebaseDatabase.ref(url);
     }
+
+  @override
+    DatabaseReference getPreviousDayDataReference() {
+      DateTime now = ukDateTimeNow();
+      now = now.subtract(const Duration(days: 1));
+      final weekStart = now.subtract(Duration(days: now.weekday - 1));
+      String url = "scrape_data/${datetimeToDate.format(weekStart)}/data/${now.weekday - 1}";
+      return _firebaseDatabase.ref(url);
+    }   
 }

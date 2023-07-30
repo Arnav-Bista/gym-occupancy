@@ -1,70 +1,78 @@
-import 'package:fl_chart/fl_chart.dart';
+
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_controller.dart';
+import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_graph_controller.dart';
+import 'package:gym_occupancy/main.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
-class Graph extends StatefulWidget {
-  const Graph({super.key, required this.data});
+class Graph extends ConsumerStatefulWidget {
+  const Graph({super.key,required this.data});
 
-  final List<(DateTime,int)> data;
+  final List<(DateTime, int)> data;
+  @override
+  ConsumerState<Graph> createState() => _GraphState();
+}
+
+class _GraphState extends ConsumerState<Graph> {
+
+
+  late TooltipBehavior _tooltipBehavior;
 
   @override
-  State<Graph> createState() => _GraphState();
-}
-class _GraphState extends State<Graph> {
-
-  DateFormat dateFormat = DateFormat("HH:mm");
-
-  Widget getBottomTileWidget(double value, TitleMeta meta) {
-    return Text(
-      dateFormat.format(widget.data[value.toInt()].$1),
-      style: Theme.of(context).textTheme.bodySmall,
+  void initState() {
+    _tooltipBehavior = TooltipBehavior(
+      enable: true, 
+      canShowMarker: false,
+      opacity: 0.8,
+      // format: 'point.x  point.y %'
     );
+    super.initState();
   }
-
-  AxisTitles noShow = const AxisTitles(sideTitles: SideTitles(showTitles: false));
 
   @override
   Widget build(BuildContext context) {
-    int index = -1;
-    return LineChart(
-      LineChartData(
-        minY: 0,
-        gridData: const FlGridData(show: false),
-        titlesData: FlTitlesData(
-          leftTitles: noShow,
-          topTitles: noShow,
-          rightTitles: noShow,
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              interval: 10,
-              getTitlesWidget: getBottomTileWidget
-            )
-          )
+    // final isDarkTheme = ref.watch(darkThemeProvider);
+    ref.watch(firebaseController).whenData((newData) {
+      final fbgc = ref.read(firebaseGraphController.notifier);
+      if (fbgc.old) {
+        fbgc.getData();
+        return;
+      }
+      widget.data.add(newData);
+    });
+    return SfCartesianChart(
+      plotAreaBorderWidth: 0,
+      legend: const Legend(isVisible: false),
+      tooltipBehavior: _tooltipBehavior,
+      primaryXAxis: DateTimeAxis(
+        axisLine: const AxisLine(width: 0),
+        majorTickLines: const MajorTickLines(width: 0),
+        minorTickLines: const MinorTickLines(width: 0),
+        borderWidth: 0,
+        interactiveTooltip: const InteractiveTooltip(enable: true)
+      ),
+      primaryYAxis: NumericAxis(
+        minimum: 0,
+        // maximum: 100
+      ),
+      series: [
+        SplineSeries(
+          name: "Occupancy",
+          enableTooltip: true,
+          animationDelay: 500,
+          animationDuration: 500,
+          splineType: SplineType.cardinal,
+          dataSource:widget.data,
+          xValueMapper: (data, _) => data.$1,
+          yValueMapper: (data, _) => data.$2,
+          pointColorMapper: (data, val) {
+            return Color.lerp(Colors.blue, Colors.red, data.$2 / 100);
+          } 
         ),
-        borderData: FlBorderData(show: false),
-        lineBarsData: [
-          LineChartBarData(
-            dotData: const FlDotData(show: false),
-            isStrokeCapRound: true,
-            isCurved: true,
-            shadow: const Shadow(color: Colors.grey),
-            belowBarData: BarAreaData(
-              show: true,
-              color: Colors.blue
-            ),
-            spots: [
-              ...widget.data.map((e) {
-                index += 1;
-                return FlSpot(
-                  index.toDouble(),
-                  e.$2.toDouble(),
-                );
-              }),
-            ]
-          )
-        ]
-        ),
-    );
+        ],
+        );
   }
 }

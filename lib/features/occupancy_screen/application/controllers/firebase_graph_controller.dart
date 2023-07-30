@@ -17,10 +17,16 @@ class FirebaseGraphController extends StateNotifier<AsyncValue<List<(DateTime, i
 
   IFirebaseRepository _getFirebaseRepository() => ref.read(firebaseRepository);
 
+  bool old = false;
+
   Future<void> getData() async {
     state = const AsyncValue.loading();
     List<(DateTime, int)> dataPoints = [];
-    final data = await _getFirebaseRepository().getCurrentDayDataReference().get();
+    DataSnapshot data = await _getFirebaseRepository().getCurrentDayDataReference().get();
+    if (data.value == null) {
+      data = await _getFirebaseRepository().getPreviousDayDataReference().get(); 
+      old = true;
+    }
     final dataSnap = data.value as Map<dynamic, dynamic>;
     dataSnap.forEach((key, value) {
       // RegExpMatch match = regex.firstMatch(key!)!;
@@ -30,6 +36,7 @@ class FirebaseGraphController extends StateNotifier<AsyncValue<List<(DateTime, i
       dataPoints.add((date,occupancy));
     });
     // Sort
+    // TODO: Replace bubble with quick sort
     for(int i = 0; i < dataPoints.length; i++) {
       bool sorted = true;
       for(int j = 0; j < dataPoints.length - 1 - i; j++) {
@@ -44,7 +51,7 @@ class FirebaseGraphController extends StateNotifier<AsyncValue<List<(DateTime, i
         break;
       }
     }
-    print(dataPoints);
+    // print(dataPoints);
     state = AsyncValue.data(dataPoints);
   }
 

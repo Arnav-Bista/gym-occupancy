@@ -27,7 +27,7 @@ class OccupancyScreen extends ConsumerWidget {
         child: Column(
           children: [
             Schedule(),
-            const Center(
+            Center(
               child: Occupancy(),
             ),
             Padding(
