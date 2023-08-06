@@ -8,9 +8,9 @@ final firebaseRepository = Provider<IFirebaseRepository>((ref) => FirebaseReposi
 abstract class IFirebaseRepository {
   Future<int> getOccupancy();
   DatabaseReference getLatestReference();
-  DatabaseReference getScheduleReference(bool returnStart);
   DatabaseReference getCurrentDayDataReference();
   DatabaseReference getPreviousDayDataReference();
+  DatabaseReference getDataReference(DateTime date);
 
 }
 
@@ -40,15 +40,7 @@ class FirebaseRepository extends IFirebaseRepository {
       return _firebaseDatabase.ref("scrape_data/latest");
     }
 
-  @override
-    DatabaseReference getScheduleReference(bool returnStart) {
-      DateTime now = ukDateTimeNow();
-      // week offset by +1 in dart that compared to python
-      final weekStart = now.subtract(Duration(days: now.weekday - 1));
-      String url = "scrape_data/${datetimeToDate.format(weekStart)}/schedule/${now.weekday - 1}/";
-      url += returnStart ? "start" : "end";
-      return _firebaseDatabase.ref(url);
-    }
+
 
   @override
     DatabaseReference getCurrentDayDataReference() {
@@ -66,4 +58,11 @@ class FirebaseRepository extends IFirebaseRepository {
       String url = "scrape_data/${datetimeToDate.format(weekStart)}/data/${now.weekday - 1}";
       return _firebaseDatabase.ref(url);
     }   
+
+  @override
+    DatabaseReference getDataReference(DateTime date) {
+      final weekStart = date.subtract(Duration(days: date.weekday - 1));
+      String url = "scrape_data/${datetimeToDate.format(weekStart)}/data/${date.weekday - 1}";
+      return _firebaseDatabase.ref(url);
+    }
 }

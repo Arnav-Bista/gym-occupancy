@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_occupancy/core/functions/text_size.dart';
+import 'package:gym_occupancy/core/widgets/custom_shimmer.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_schedule_controller.dart';
 import 'package:gym_occupancy/main.dart';
 import 'package:intl/intl.dart';
@@ -75,7 +76,7 @@ class ScheduleTiming extends StatelessWidget {
   final bool isLoading;
   @override
   Widget build(BuildContext context) {
-  final Size textSize = getTextSize("8:00 AM", Theme.of(context).textTheme.headlineSmall!);
+    final Size textSize = getTextSize("8:00 AM", Theme.of(context).textTheme.headlineSmall!);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -83,25 +84,16 @@ class ScheduleTiming extends StatelessWidget {
           heading,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
-        isLoading 
-        ? Shimmer.fromColors(
-          baseColor: Colors.transparent,
-          highlightColor: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(1),
-            child: Container(
-            width: textSize.width,
-            height: textSize.height,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: Colors.grey
-            )
-          ),
-          ),
-        )
-        : Text(
-          timing,
-          style: Theme.of(context).textTheme.headlineSmall,
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 200),
+          child: 
+          isLoading 
+          ? 
+          CustomShimmer(height: textSize.height, width: textSize.width, padding: 1)
+          : Text(
+            timing,
+            style: Theme.of(context).textTheme.headlineSmall,
+          )
         )
       ],
     );
