@@ -26,9 +26,10 @@ class FirebaseController extends StateNotifier<AsyncValue<(DateTime, int)>> {
 
   Future<void> dataListener(DatabaseEvent event) async {
     state = const AsyncValue.loading();
-    final snapshot = event.snapshot.children.first;
+    final snapshot = event.snapshot.child("data").children.first;
     String latestScrapeKey = snapshot.key!;
-    DateTime date = DateFormat("dd-MM-yyyy HH:mm:ss").parse(latestScrapeKey);
+    print(latestScrapeKey);
+    DateTime date = DateFormat("yyyy-MM-dd-HH-mm").parse(latestScrapeKey);
     int occupancy = snapshot.value as int;
     state = AsyncValue.data((date, occupancy));
   }

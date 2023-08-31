@@ -1,15 +1,12 @@
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_database/firebase_database.dart'; import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_occupancy/core/functions/uk_datetime.dart';
 import "package:intl/intl.dart";
 
 final firebaseRepository = Provider<IFirebaseRepository>((ref) => FirebaseRepository());
 
 abstract class IFirebaseRepository {
-  Future<int> getOccupancy();
   DatabaseReference getLatestReference();
-  DatabaseReference getCurrentDayDataReference();
-  DatabaseReference getPreviousDayDataReference();
+  Future<(DateTime,DatabaseReference)> getDayDataReference();
   DatabaseReference getDataReference(DateTime date);
 
 }
@@ -19,50 +16,39 @@ class FirebaseRepository extends IFirebaseRepository {
   final datetimeToDate = DateFormat("yyyy-MM-dd");
 
   DateTime getWeekStart() {
-      DateTime now = ukDateTimeNow();
-      // week offset by +1 in dart that compared to python
-      final start = now.subtract(Duration(days: now.weekday - 1));
-      return start;
+    DateTime now = ukDateTimeNow();
+    // week offset by +1 in dart that compared to python
+    final start = now.subtract(Duration(days: now.weekday - 1));
+    return start;
   }
 
 
   @override
-    Future<int> getOccupancy() async {
-      final start = getWeekStart();
-      final String databaseKey = datetimeToDate.format(start);
-      DatabaseReference _ref = _firebaseDatabase.ref("scrape_data/latest");
-      final data = await _ref.get();
-      return data.children.first.value! as int;
-    }
+  Future<(DateTime,DatabaseReference)> getDayDataReference() async {
+    final latestDay = await getLatestReference().get();
+    final map = latestDay.child("data").value as Map<dynamic, dynamic>;
+    final key = map.keys.first as String;
+    final DateTime date = DateFormat("yyyy-MM-dd-HH-mm").parse(key);
+    return (date,getDataReference(date));
+  }
 
   @override
-    DatabaseReference getLatestReference() {
-      return _firebaseDatabase.ref("scrape_data/latest");
-    }
-
-
+  DatabaseReference getLatestReference() {
+    return _firebaseDatabase.ref("rs_data/data/latest");
+  }
 
   @override
-    DatabaseReference getCurrentDayDataReference() {
-      DateTime now = ukDateTimeNow();
-      final weekStart = now.subtract(Duration(days: now.weekday - 1));
-      String url = "scrape_data/${datetimeToDate.format(weekStart)}/data/${now.weekday - 1}";
-      return _firebaseDatabase.ref(url);
-    }
+  DatabaseReference getDataReference(DateTime date) {
+    final weekStart = date.subtract(Duration(days: date.weekday - 1));
+    String url = "rs_data/data/${datetimeToDate.format(weekStart)}/${date.weekday - 1}";
+    return _firebaseDatabase.ref(url);
+  }
 
-  @override
-    DatabaseReference getPreviousDayDataReference() {
-      DateTime now = ukDateTimeNow();
-      now = now.subtract(const Duration(days: 1));
-      final weekStart = now.subtract(Duration(days: now.weekday - 1));
-      String url = "scrape_data/${datetimeToDate.format(weekStart)}/data/${now.weekday - 1}";
-      return _firebaseDatabase.ref(url);
-    }   
-
-  @override
-    DatabaseReference getDataReference(DateTime date) {
-      final weekStart = date.subtract(Duration(days: date.weekday - 1));
-      String url = "scrape_data/${datetimeToDate.format(weekStart)}/data/${date.weekday - 1}";
-      return _firebaseDatabase.ref(url);
-    }
+  // DatabaseReference getPredictionDataReference() {
+  //   final latestDay = await getLatestReference().get();
+  //   final map = latestDay.child("data").value as Map<dynamic, dynamic>;
+  //   final key = map.keys.first as String;
+  //   final DateTime date = DateFormat("yyyy-MM-dd-HH-mm").parse(key);
+  //
+  //   return _firebaseDatabase.ref("rs_data/predictio }
 }

@@ -48,10 +48,6 @@ class _GraphState extends ConsumerState<Graph>{
     // final isDarkTheme = ref.watch(darkThemeProvider);
     final fbgc = ref.watch(firebaseGraphController.notifier);
     ref.watch(firebaseController).whenData((newData) {
-      if (fbgc.old && newData.$1.day == ukDateTimeNow().day) {
-        fbgc.getData();
-        return;
-      }
       final data = (convertToNumber(newData.$1), newData.$2);
       widget.data.add(data);
     });
@@ -69,7 +65,7 @@ class _GraphState extends ConsumerState<Graph>{
       primaryXAxis: NumericAxis(
         majorGridLines: const MajorGridLines(width: 0),
         minimum: start.toDouble(),
-        maximum: fbgc.old ? end.toDouble() : null,
+        maximum: end.toDouble(),
         // interval: widget.data.last.$1 - widget.data.first.$1 > 300 ? 300 : null
         // interval: 300
       ),
