@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_occupancy/core/widgets/custom_shimmer.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_graph_controller.dart';
+import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_prediction_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/widgets/graph.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -12,6 +13,7 @@ class OccupancyGraph extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(firebaseGraphController);
+    final predictionData = ref.watch(firebasePredictionController);
     final height= MediaQuery.of(context).size.height * 0.25;
     final width= MediaQuery.of(context).size.width * 1;
     return 

@@ -8,7 +8,7 @@ abstract class IFirebaseRepository {
   DatabaseReference getLatestReference();
   Future<(DateTime,DatabaseReference)> getDayDataReference();
   DatabaseReference getDataReference(DateTime date);
-
+  Future<DatabaseReference> getPredictionDataReference();
 }
 
 class FirebaseRepository extends IFirebaseRepository {
@@ -44,11 +44,13 @@ class FirebaseRepository extends IFirebaseRepository {
     return _firebaseDatabase.ref(url);
   }
 
-  // DatabaseReference getPredictionDataReference() {
-  //   final latestDay = await getLatestReference().get();
-  //   final map = latestDay.child("data").value as Map<dynamic, dynamic>;
-  //   final key = map.keys.first as String;
-  //   final DateTime date = DateFormat("yyyy-MM-dd-HH-mm").parse(key);
-  //
-  //   return _firebaseDatabase.ref("rs_data/predictio }
+  Future<DatabaseReference> getPredictionDataReference() async {
+    final latestDay = await getLatestReference().get();
+    final map = latestDay.child("data").value as Map<dynamic, dynamic>;
+    final key = map.keys.first as String;
+    final DateTime date = DateFormat("yyyy-MM-dd-HH-mm").parse(key);
+    final DateTime weekStart = date.subtract(Duration(days: date.weekday - 1));
+    String url = "rs_data/prediction/${datetimeToDate.format(weekStart)}/${date.weekday - 1}";
+    return _firebaseDatabase.ref(url);
+      }
 }

@@ -37,6 +37,25 @@ void _initialiseThemeProvider() async {
   }
 }
 
+class RecordAdapter extends TypeAdapter<(int,int)> {
+  @override
+  final int typeId = 0;
+
+  @override
+    (int, int) read(BinaryReader reader) {
+      // TODO: implement read
+      final a = reader.readInt();
+      final b = reader.readInt();
+      return (a,b);
+    }
+
+  @override
+    void write(BinaryWriter writer, (int, int) obj) {
+      writer.writeInt(obj.$1);
+      writer.writeInt(obj.$2);
+    }
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -60,10 +79,12 @@ void main() async {
   }
 
   await Hive.initFlutter();
+  Hive.registerAdapter(RecordAdapter());
   // FirebaseDatabase.instance.setPersistenceEnabled(true);
 
   tzl.initializeTimeZones();
   await Hive.openBox("settings");
+  await Hive.openBox("predictions");
   _initialiseThemeProvider();
 
 

@@ -2,7 +2,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_occupancy/features/occupancy_screen/infrastructure/repositories/firebase_repository.dart';
-import 'package:intl/intl.dart';
 
 
 final firebaseGraphController = StateNotifierProvider<FirebaseGraphController, AsyncValue<List<(int, int)>>>((ref) => FirebaseGraphController(ref: ref));
@@ -13,7 +12,6 @@ class FirebaseGraphController extends StateNotifier<AsyncValue<List<(int, int)>>
   }
 
   final StateNotifierProviderRef ref;
-  final RegExp regex = RegExp("\\s(\\d+:\\d+)");
 
   IFirebaseRepository _getFirebaseRepository() => ref.read(firebaseRepository);
 
@@ -32,5 +30,4 @@ class FirebaseGraphController extends StateNotifier<AsyncValue<List<(int, int)>>
     }
     state = AsyncValue.data(dataPoints);
   }
-
 }
