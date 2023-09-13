@@ -55,8 +55,8 @@ class _GraphState extends ConsumerState<Graph>{
       widget.data.add(data);
     });
     ref.watch(firebaseScheduleController).whenData((value) {
-      start = convertToNumber(value.$1);
-      end = convertToNumber(value.$2) + 30;
+      start = convertToNumber(value.$2);
+      end = convertToNumber(value.$3);
     });
     ref.watch(firebasePredictionController).whenData((value) {
       prediction = value;

@@ -27,7 +27,7 @@ class Schedule extends ConsumerWidget{
         // ),
       scheduleController.when(
         data: (data) {
-          return Display(isLoading: false, first: scheduleFormatter.format(data.$1), last: scheduleFormatter.format(data.$2));
+          return Display(isLoading: false, first: scheduleFormatter.format(data.$2), last: scheduleFormatter.format(data.$3));
         },
         loading: () {
           return const Display(isLoading: true, first: "Loading", last: "Loading");

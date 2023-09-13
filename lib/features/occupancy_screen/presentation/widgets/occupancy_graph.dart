@@ -13,7 +13,6 @@ class OccupancyGraph extends ConsumerWidget{
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(firebaseGraphController);
-    final predictionData = ref.watch(firebasePredictionController);
     final height= MediaQuery.of(context).size.height * 0.25;
     final width= MediaQuery.of(context).size.width * 1;
     return 
