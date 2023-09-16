@@ -9,6 +9,7 @@ abstract class IFirebaseRepository {
   Future<(DateTime,DatabaseReference)> getDayDataReference();
   DatabaseReference getDataReference(DateTime date);
   Future<DatabaseReference> getPredictionDataReference();
+  DatabaseReference getPredictionReference(DateTime date);
   DatabaseReference getScheduleReference();
 }
 
@@ -23,7 +24,7 @@ class FirebaseRepository extends IFirebaseRepository {
     final start = now.subtract(Duration(days: now.weekday - 1));
     return start;
   }
-  
+
   @override
   Future<(DateTime,DatabaseReference)> getDayDataReference() async {
     final latestDay = await _firebaseDatabase.ref("rs_data/data/latest/data").get();
@@ -44,7 +45,7 @@ class FirebaseRepository extends IFirebaseRepository {
     String url = "rs_data/data/${datetimeToDate.format(weekStart)}/${date.weekday - 1}";
     return _firebaseDatabase.ref(url);
   }
-  
+
   @override
   Future<DatabaseReference> getPredictionDataReference() async {
     final latestDay = await _firebaseDatabase.ref("rs_data/data/latest/data").get();
@@ -54,11 +55,19 @@ class FirebaseRepository extends IFirebaseRepository {
     final DateTime weekStart = date.subtract(Duration(days: date.weekday - 1));
     String url = "rs_data/prediction/${datetimeToDate.format(weekStart)}/${date.weekday - 1}";
     return _firebaseDatabase.ref(url);
-      }
+  }
 
   @override
-    DatabaseReference getScheduleReference() {
-      String url = "rs_data/data/latest/schedule";
-      return _firebaseDatabase.ref(url);
-    }
+  DatabaseReference getPredictionReference(DateTime date) {
+    final weekStart = date.subtract(Duration(days: date.weekday - 1));
+    final key = datetimeToDate.format(weekStart);
+    String url = "rs_data/prediction/$key/${date.weekday -1}";
+    return _firebaseDatabase.ref(url);
+  }
+
+  @override
+  DatabaseReference getScheduleReference() {
+    String url = "rs_data/data/latest/schedule";
+    return _firebaseDatabase.ref(url);
+  }
 }

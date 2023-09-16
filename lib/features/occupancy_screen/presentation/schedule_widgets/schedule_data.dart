@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_multi_schedule_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_schedule_controller.dart';
+import 'package:gym_occupancy/features/occupancy_screen/infrastructure/models/schedule_model.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/schedule_widgets/schedule_entry.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/schedule_widgets/schedule_entry_header.dart';
 import 'package:shimmer/shimmer.dart';
@@ -19,9 +20,11 @@ class ScheduleData extends ConsumerStatefulWidget {
 class _ScheduleDataState extends ConsumerState<ScheduleData> {
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(firebaseMultiScheduleController);
+    final state = ref.watch(firebaseScheduleController);
+    final controller = ref.watch(firebaseScheduleController.notifier);
     return state.when(
-      data: (data) {
+      data: (_) {
+        ScheduleModel data = controller.getAllSchedule();
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -32,7 +35,9 @@ class _ScheduleDataState extends ConsumerState<ScheduleData> {
               indent: MediaQuery.of(context).size.width * 0.1,
               endIndent: MediaQuery.of(context).size.width * 0.1,
             ),
-            if (data != null) ...data.map((e) => ScheduleEntry(data: e)),
+            ...List.generate(data.data.length, (index) => ScheduleEntry(data: data.getEntry(index), index: index))
+            // if (data.data != []) ...data.data.map((e, index) => ScheduleEntry(data: data.getEntryFromRecord(e))),
+            // if (data.data != []) ...data.data.map((e) => ScheduleEntry(data: data.getEntry)),
           ],
         );
       },

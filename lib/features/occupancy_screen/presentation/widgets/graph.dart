@@ -24,6 +24,7 @@ class _GraphState extends ConsumerState<Graph>{
 
 
   late TooltipBehavior _tooltipBehavior;
+  late ZoomPanBehavior _zoomPanBehavior;
 
   int start = 600;
   int end = 2230;
@@ -36,6 +37,10 @@ class _GraphState extends ConsumerState<Graph>{
 
   @override
   void initState() {
+    _zoomPanBehavior = ZoomPanBehavior(
+      enablePinching: true,
+      enablePanning: true,
+    );
     _tooltipBehavior = TooltipBehavior(
       enable: true, 
       canShowMarker: false,
@@ -62,6 +67,7 @@ class _GraphState extends ConsumerState<Graph>{
       prediction = value;
     });
     return SfCartesianChart(
+      zoomPanBehavior: _zoomPanBehavior,
       plotAreaBorderWidth: 0,
       legend: const Legend(
         isVisible: true,

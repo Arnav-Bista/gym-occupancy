@@ -27,7 +27,7 @@ class FirebaseScheduleController extends StateNotifier<AsyncValue<(bool, DateTim
   final scheduleFormatter = DateFormat("yyyy-MM-dd HH:mm:ss");
   ScheduleData _getScheduleData() => ref.read(scheduleDataProvider);
   ScheduleModel _getScheduleModel() => ref.read(scheduleModelProvider);
-  
+
   int _getHour(int input) {
     return input ~/ 100;
   }
@@ -37,15 +37,14 @@ class FirebaseScheduleController extends StateNotifier<AsyncValue<(bool, DateTim
   }
 
   (bool, DateTime, DateTime) _getData(List<(bool, int, int)> data) {
-      DateTime ukToday = ukDateTimeNow();
-      int weekday = ukToday.weekday - 1;
-      if(!_getScheduleModel().data[weekday].$1) {
-        return (false, ukToday, ukToday);
-      }
-      DateTime opening = DateTime(ukToday.year, ukToday.month, ukToday.day, _getHour(data[weekday].$2), _getMinute(data[weekday].$2));
-      DateTime closing = DateTime(ukToday.year, ukToday.month, ukToday.day, _getHour(data[weekday].$3), _getMinute(data[weekday].$3));
-      print(opening);
-      return (true, opening, closing);
+    DateTime ukToday = ukDateTimeNow();
+    int weekday = ukToday.weekday - 1;
+    if(!_getScheduleModel().data[weekday].$1) {
+      return (false, ukToday, ukToday);
+    }
+    DateTime opening = DateTime(ukToday.year, ukToday.month, ukToday.day, _getHour(data[weekday].$2), _getMinute(data[weekday].$2));
+    DateTime closing = DateTime(ukToday.year, ukToday.month, ukToday.day, _getHour(data[weekday].$3), _getMinute(data[weekday].$3));
+    return (true, opening, closing);
   }
 
   Future<void> getSchedule(DateTime date) async {
@@ -56,10 +55,12 @@ class FirebaseScheduleController extends StateNotifier<AsyncValue<(bool, DateTim
       state = AsyncValue.data(_getData(_getScheduleModel().data));
     }
     DataSnapshot scheduleJson = await _getFirebaseRepository().getScheduleReference().get();
-    print(scheduleJson.value);
     _getScheduleModel().setData(_getScheduleModel().dataFromJSON(scheduleJson.value));
     state = AsyncValue.data(_getData(_getScheduleModel().data));
-    print(state);
+  }
+
+  ScheduleModel getAllSchedule() {
+    return _getScheduleModel(); 
   }
 }
 

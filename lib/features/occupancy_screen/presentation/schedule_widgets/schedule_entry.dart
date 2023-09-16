@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gym_occupancy/core/functions/get_day_name.dart';
 import 'package:gym_occupancy/main.dart';
 import 'package:intl/intl.dart';
 
 class ScheduleEntry extends ConsumerWidget{
-  ScheduleEntry({super.key, required this.data});
+  ScheduleEntry({super.key, required this.data, required this.index});
 
-  final (DateTime,DateTime) data;
+  final (bool,DateTime,DateTime) data;
+  final int index;
 
   final DateFormat timeFormatter = DateFormat("h:mm a");
 
@@ -19,16 +21,16 @@ class ScheduleEntry extends ConsumerWidget{
         Expanded(
           flex: 3,
           child: Text(
-            DateFormat("EEEE").format(data.$1), 
+            getDayName(index),
             style: Theme.of(context).textTheme.bodyMedium
-            ),
+          ),
         ),
         Expanded(
           flex: 2,
           child: Text(
-            timeFormatter.format(data.$1),
+            timeFormatter.format(data.$2),
             style: Theme.of(context).textTheme.bodyMedium
-            ),
+          ),
         ),
         Expanded(
           flex: 1,
@@ -47,12 +49,11 @@ class ScheduleEntry extends ConsumerWidget{
         Expanded(
           flex: 2,
           child: Text(
-            timeFormatter.format(data.$2),
+            timeFormatter.format(data.$3),
             style: Theme.of(context).textTheme.bodyMedium
-            ),
-
-        )
-            ]
-            );
+          ),
+        ),
+        ],
+        );
   }
 }

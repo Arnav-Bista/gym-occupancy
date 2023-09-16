@@ -16,9 +16,8 @@ class Prediction extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        PredictionGraph(date: ukDateTimeNow().subtract(const Duration(days: 1))),
-        PredictionGraph(date: ukDateTimeNow()),
-        PredictionGraph(date: ukDateTimeNow().add(const Duration(days: 1))),
+        // PredictionGraph(date: ukDateTimeNow()),
+        const PredictionGraph(),
       ],
     );
   }
