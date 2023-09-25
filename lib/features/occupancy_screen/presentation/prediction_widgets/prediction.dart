@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:gym_occupancy/core/functions/uk_datetime.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/prediction_widgets/prediction_graph.dart';
+import 'package:gym_occupancy/features/occupancy_screen/presentation/widgets/occupancy_graph.dart';
 
 
 
@@ -14,10 +15,10 @@ class Prediction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
-        // PredictionGraph(date: ukDateTimeNow()),
-        const PredictionGraph(),
+        OccupancyGraph(),
+        PredictionGraph(),
       ],
     );
   }

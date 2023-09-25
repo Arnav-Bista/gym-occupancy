@@ -90,8 +90,8 @@ class _OccupancyState extends ConsumerState<Occupancy> with WidgetsBindingObserv
                           Builder(builder: (context) {
                             final isDarkMode = ref.watch(darkThemeProvider);
                             return CircularProgressIndicator(strokeWidth: 10, 
-                                  color: isDarkMode ? const Color(0xFF808080) : const Color(0x60808080)
-                                );
+                              color: isDarkMode ? const Color(0xFF808080) : const Color(0x60808080)
+                            );
                           }),
                       DataState.data => 
                           HookBuilder(builder: (context) {
@@ -131,10 +131,10 @@ class _OccupancyState extends ConsumerState<Occupancy> with WidgetsBindingObserv
         DataState.loading => CustomShimmer(height: lastUpdatedTextSize.height, width: lastUpdatedTextSize.width, padding: 1,),
         DataState.error => const Icon(Icons.error)
       },
-    )
-        ],
-        ),
-        );
+    ),
+    ],
+    ),
+    );
   }
 }
 

@@ -26,7 +26,7 @@ class _ScheduleDataState extends ConsumerState<ScheduleData> {
       data: (_) {
         ScheduleModel data = controller.getAllSchedule();
         return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const ScheduleEntryHeader(),
             Divider(
@@ -35,30 +35,30 @@ class _ScheduleDataState extends ConsumerState<ScheduleData> {
               indent: MediaQuery.of(context).size.width * 0.1,
               endIndent: MediaQuery.of(context).size.width * 0.1,
             ),
-            ...List.generate(data.data.length, (index) => ScheduleEntry(data: data.getEntry(index), index: index))
-            // if (data.data != []) ...data.data.map((e, index) => ScheduleEntry(data: data.getEntryFromRecord(e))),
-            // if (data.data != []) ...data.data.map((e) => ScheduleEntry(data: data.getEntry)),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(data.data.length, (index) => ScheduleEntry(data: data.getEntry(index), index: index)),
+            )
           ],
         );
       },
-      loading: () {
-        return Shimmer.fromColors(
-          baseColor: Colors.transparent,
-          highlightColor: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(1),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.circular(10)
-              ),
+    loading: () {
+      return Shimmer.fromColors(
+        baseColor: Colors.transparent,
+        highlightColor: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(1),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(10)
             ),
           ),
-        );
-      },
+        ),
+      );
+    },
     error: (error, stackTrace) {
-      //TODO better errror
-      return Icon(Icons.error, size: MediaQuery.of(context).size.width * 0.6,);
+      return Icon(Icons.error, size: MediaQuery.of(context).size.width * 0.6);
     }
     );
   }

@@ -54,8 +54,8 @@ class _PredictionGraphState extends ConsumerState<PredictionGraph> {
 
     setTimings(sm);
 
-    final height = MediaQuery.of(context).size.height * 0.30;
-    final width = MediaQuery.of(context).size.width * 0.9;
+    final height = MediaQuery.of(context).size.height * 0.25;
+    final width = MediaQuery.of(context).size.width * 1;
 
     return SizedBox(
       height: height,
@@ -73,13 +73,8 @@ class _PredictionGraphState extends ConsumerState<PredictionGraph> {
             majorGridLines: const MajorGridLines(width: 0),
             minimum: start.toDouble(),
             maximum: end.toDouble(),
-            // interval: widget.data.last.$1 - widget.data.first.$1 > 300 ? 300 : null
-            // interval: 300
           ),
           primaryYAxis: NumericAxis(
-            // majorTickLines: MajorTickLines(width: 0),
-            // minorTickLines: MinorTickLines(width: 0),
-            // axisLine: AxisLine(width: 0),
             majorGridLines: const MajorGridLines(dashArray: [10,10]),
             minimum: 0,
             maximum: 100,

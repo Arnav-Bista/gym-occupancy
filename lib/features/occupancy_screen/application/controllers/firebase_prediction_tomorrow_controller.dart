@@ -43,7 +43,7 @@ class FirebasePredictionTomorrowController extends StateNotifier<AsyncValue<List
 
     box.put("tomorrow_date", date);
     box.put("tomorrow_data", dataPoints);
-    print(dataPoints);
+    // print(dataPoints);
 
     state = AsyncValue.data(dataPoints);
   }

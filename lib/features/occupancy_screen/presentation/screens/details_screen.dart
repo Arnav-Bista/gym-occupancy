@@ -26,7 +26,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment:  CrossAxisAlignment.center,
-            mainAxisAlignment:  MainAxisAlignment.start,
+            mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
             children: [
               Flexible(
                 child: Text("Week starting ${titleFormatter.format(date)}", style: Theme.of(context).textTheme.bodyLarge),
@@ -35,10 +35,9 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                 indent: MediaQuery.of(context).size.width * 0.02,
                 endIndent: MediaQuery.of(context).size.width * 0.02
               ),
-              // ...List.generate(7, (index) => ScheduleEntry(data: data))
               ScheduleData(date: date),
-              Divider(),
-              Prediction()
+              const Divider(),
+              const Prediction()
             ],
           ),
         );

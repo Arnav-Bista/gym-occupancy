@@ -26,7 +26,7 @@ class _GraphState extends ConsumerState<Graph>{
   late TooltipBehavior _tooltipBehavior;
   late ZoomPanBehavior _zoomPanBehavior;
 
-  int start = 600;
+  int start = 630;
   int end = 2230;
 
   List<(int,int)>? prediction;
@@ -106,14 +106,14 @@ class _GraphState extends ConsumerState<Graph>{
             return Color.lerp(Theme.of(context).colorScheme.primary, Colors.red, data.$2 / 100);
           } 
         ),
-        SplineSeries(
+        LineSeries(
           markerSettings: const MarkerSettings(isVisible: true),
           isVisibleInLegend: false,
           name: "Occupancy",
           enableTooltip: false,
           animationDelay: 500,
           animationDuration: 800,
-          splineType: SplineType.natural,
+          // splineType: SplineType.natural,
           dataSource:[widget.data.last],
           xValueMapper: (data, _) => data.$1,
           yValueMapper: (data, _) => data.$2,
@@ -121,20 +121,18 @@ class _GraphState extends ConsumerState<Graph>{
             return Color.lerp(Theme.of(context).colorScheme.primary, Colors.red, data.$2 / 100);
           } 
         ),
-        
         LineSeries(
-          // markerSettings: const MarkerSettings(isVisible: true),
           isVisibleInLegend: true,
-          // dashArray:  const <double>[2, 10],
+          // dashArray:  const <double>[2, 5],
           name: "Prediction",
           enableTooltip: false,
           animationDelay: 500,
           animationDuration: 800,
-          opacity: 0.3,
+          opacity: 0.5,
           dataSource: prediction ?? [],
           xValueMapper: (data, _) => data.$1,
           yValueMapper: (data, _) => data.$2,
-          color: Colors.purple
+          color: Colors.blueGrey
         ),
       ],
       );
