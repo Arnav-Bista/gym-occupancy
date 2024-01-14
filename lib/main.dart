@@ -16,6 +16,7 @@ late StateProvider darkThemeProvider;
 void _initialiseThemeProvider() async {
   var settings = await Hive.openBox("settings");
   String? theme = settings.get("theme");
+
   if(theme == null) {
     switch (SchedulerBinding.instance.platformDispatcher.platformBrightness) {
       case Brightness.dark:
@@ -80,7 +81,6 @@ void main() async {
 
   await Hive.initFlutter();
   Hive.registerAdapter(RecordAdapter());
-  // FirebaseDatabase.instance.setPersistenceEnabled(true);
 
   tzl.initializeTimeZones();
   await Hive.openBox("settings");
