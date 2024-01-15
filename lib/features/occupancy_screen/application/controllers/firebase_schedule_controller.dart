@@ -1,14 +1,11 @@
-import 'dart:collection';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_occupancy/core/functions/uk_datetime.dart';
-import 'package:gym_occupancy/core/models/custom_error.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_multi_schedule_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/infrastructure/models/schedule_data.dart';
 import 'package:gym_occupancy/features/occupancy_screen/infrastructure/models/schedule_model.dart';
 import 'package:gym_occupancy/features/occupancy_screen/infrastructure/repositories/firebase_repository.dart';
-import 'package:gym_occupancy/features/occupancy_screen/infrastructure/repositories/firebase_schedule_repository.dart';
 import 'package:intl/intl.dart';
 
 

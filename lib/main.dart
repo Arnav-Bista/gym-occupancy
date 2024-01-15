@@ -8,7 +8,6 @@ import 'package:gym_occupancy/app.dart';
 import 'package:gym_occupancy/firebase_options.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:timezone/data/latest.dart' as tzl;
-import 'package:timezone/timezone.dart' as tz;
 
 
 late StateProvider darkThemeProvider;

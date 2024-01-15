@@ -1,4 +1,3 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_occupancy/core/functions/uk_datetime.dart';
@@ -7,7 +6,6 @@ import 'package:gym_occupancy/features/occupancy_screen/application/controllers/
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_schedule_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/infrastructure/models/schedule_model.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/widgets/generic_graph.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class PredictionGraph extends ConsumerStatefulWidget {
   const PredictionGraph({super.key, required this.height, required this.width});

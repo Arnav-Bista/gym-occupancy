@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_occupancy/core/widgets/custom_shimmer.dart';
-import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_graph_controller.dart';
-import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_prediction_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/widgets/graph.dart';
-import 'package:shimmer/shimmer.dart';
 
 class OccupancyGraph extends ConsumerWidget{
   const OccupancyGraph({super.key, required this.height, required this.width});

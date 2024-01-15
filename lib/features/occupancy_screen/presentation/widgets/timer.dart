@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_occupancy/core/functions/uk_datetime.dart';
 
 class TimerWidget extends StatefulWidget {

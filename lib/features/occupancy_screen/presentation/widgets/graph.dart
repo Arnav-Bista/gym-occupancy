@@ -1,10 +1,8 @@
 import 'dart:math';
 
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_controller.dart';
-import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_graph_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_prediction_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_schedule_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/widgets/generic_graph.dart';

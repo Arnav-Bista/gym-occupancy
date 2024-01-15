@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gym_occupancy/core/widgets/theme_change_button.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/screens/details_screen.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/screens/occupancy_screen.dart';
 import 'package:gym_occupancy/features/user_settings/presentation/settings_screen.dart';

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_multi_schedule_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_schedule_controller.dart';
 import 'package:gym_occupancy/features/occupancy_screen/infrastructure/models/schedule_model.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/schedule_widgets/schedule_entry.dart';

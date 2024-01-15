@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gym_occupancy/core/functions/uk_datetime.dart';
 import 'package:intl/intl.dart';
 
 final scheduleDataProvider = Provider((ref) => ScheduleData());
