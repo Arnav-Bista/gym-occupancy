@@ -26,18 +26,24 @@ class OccupancyScreen extends ConsumerWidget {
             ),
             LastUpdated(),
             Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                "Today's Occupancy and Prediction",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.symmetric(
-                // horizontal: MediaQuery.of(context).size.width * 0.05,
                 vertical: 20,
               ),
               child: OccupancyGraph(
-                height: constraints.maxHeight * 0.35,
+                height: constraints.maxHeight * 0.30,
                 width: constraints.maxWidth,
               ),
             ),
           ],
         );
       }),
-      );
+    );
   }
 }

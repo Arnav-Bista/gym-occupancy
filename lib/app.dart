@@ -1,8 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:gym_occupancy/features/occupancy_screen/application/controllers/firebase_graph_controller.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gym_occupancy/features/occupancy_screen/presentation/screen_manager.dart';
-import 'package:gym_occupancy/features/occupancy_screen/presentation/screens/occupancy_screen.dart';
 import 'package:gym_occupancy/main.dart';
 
 class App extends ConsumerStatefulWidget {
@@ -12,9 +11,13 @@ class App extends ConsumerStatefulWidget {
     var baseTheme = ThemeData(
       colorSchemeSeed: const Color(0xFF29335C),
       useMaterial3: true,
-      brightness: isDarkTheme ? Brightness.dark : Brightness.light
+      brightness: isDarkTheme ? Brightness.dark : Brightness.light,
     );
-    return baseTheme;
+    return baseTheme.copyWith(
+      textTheme: GoogleFonts.latoTextTheme(
+        baseTheme.textTheme
+      )
+    );
   }
 
   @override

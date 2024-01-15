@@ -14,7 +14,7 @@ class DetailsScreen extends ConsumerStatefulWidget {
 
 class _DetailsScreenState extends ConsumerState<DetailsScreen> {
 
-  DateFormat titleFormatter = DateFormat("dd EEE MMM yyyy");
+  DateFormat titleFormatter = DateFormat("dd MMM, yyyy");
 
 
   @override
@@ -28,7 +28,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
             mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
             children: [
               Flexible(
-                child: Text("Week starting ${titleFormatter.format(date)}", style: Theme.of(context).textTheme.bodyLarge),
+                child: Text("Week Starting ${titleFormatter.format(date)}", style: Theme.of(context).textTheme.bodyLarge),
               ),
               Divider(
                 indent: MediaQuery.of(context).size.width * 0.02,

@@ -10,7 +10,10 @@ import 'package:gym_occupancy/features/occupancy_screen/presentation/widgets/gen
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class PredictionGraph extends ConsumerStatefulWidget {
-  const PredictionGraph({super.key});
+  const PredictionGraph({super.key, required this.height, required this.width});
+
+  final double height;
+  final double width;
 
   @override
   ConsumerState<PredictionGraph> createState() => _PredictionGraphState();
@@ -42,17 +45,14 @@ class _PredictionGraphState extends ConsumerState<PredictionGraph> {
 
     setTimings(sm);
 
-    final height = MediaQuery.of(context).size.height * 0.25;
-    final width = MediaQuery.of(context).size.width * 1;
-
     return SizedBox(
-      height: height,
-      width: width,
+      height: widget.height,
+      width: widget.width,
       child: controller.when(
         data: (data) {
           return GenericGraph(start: start, end: end, data: data);
         },
-        loading: () => CustomShimmer(height: height, width: width, padding: 10),
+        loading: () => CustomShimmer(height: widget.height, width: widget.width, padding: 10),
         error: (stack, err) => const Icon(Icons.error),
       ),
     );

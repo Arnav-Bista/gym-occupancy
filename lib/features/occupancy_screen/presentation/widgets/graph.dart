@@ -41,7 +41,6 @@ class _GraphState extends ConsumerState<Graph> {
   @override
   Widget build(BuildContext context) {
     // final isDarkTheme = ref.watch(darkThemeProvider);
-    final fbgc = ref.watch(firebaseGraphController.notifier);
     ref.watch(firebaseController).whenData((newData) {
       final data = (convertToNumber(newData.$1), newData.$2);
       maximumOccupancy = max(maximumOccupancy, data.$2);

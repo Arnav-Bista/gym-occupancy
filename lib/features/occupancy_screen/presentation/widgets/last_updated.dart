@@ -17,7 +17,7 @@ class LastUpdated extends ConsumerWidget {
 
     final Size lastUpdatedTextSize = getTextSize(
         "Last updated XX hours and XX seconds ago",
-        Theme.of(context).textTheme.bodyMedium!);
+        Theme.of(context).textTheme.bodyLarge!);
 
     ref.watch(firebaseController).when(data: (data) {
       renderData = data;

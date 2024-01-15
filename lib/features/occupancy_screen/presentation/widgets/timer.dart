@@ -9,13 +9,11 @@ class TimerWidget extends StatefulWidget {
 
   final DateTime startDate;
 
-
   @override
   State<TimerWidget> createState() => _TimerWidgetState();
 }
 
 class _TimerWidgetState extends State<TimerWidget> {
-
   Timer? secondsTimer;
   Timer? minuteTimer;
 
@@ -29,13 +27,12 @@ class _TimerWidgetState extends State<TimerWidget> {
       setState(() {
         seconds += 1;
       });
-      if(seconds == 60) {
+      if (seconds == 60) {
         seconds = 0;
         minutes += 1;
       }
     });
   }
-
 
   @override
   void initState() {
@@ -45,12 +42,11 @@ class _TimerWidgetState extends State<TimerWidget> {
     hours = difference.inHours;
     minutes = difference.inMinutes % 60;
     seconds = difference.inSeconds % 60;
-    if(seconds < 0) {
+    if (seconds < 0) {
       minutes -= 1;
       seconds += 60;
     }
     startSecondsTimer();
-
   }
 
   @override
@@ -62,8 +58,12 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return hours == 0 
-        ? Text("Last updated $minutes minute${minutes == 1 ? "" : "s"} and $seconds second${seconds == 1 ? "" : "s"} ago")
-        : Text("Last updated $hours hour${hours == 1 ? "" : "s"} and $minutes minute${minutes == 1 ? "" : "s"} ago");
+    return hours == 0
+        ? Text(
+            "Last updated $minutes minute${minutes == 1 ? "" : "s"} and $seconds second${seconds == 1 ? "" : "s"} ago",
+            style: Theme.of(context).textTheme.bodyLarge)
+        : Text(
+            "Last updated $hours hour${hours == 1 ? "" : "s"} and $minutes minute${minutes == 1 ? "" : "s"} ago",
+            style: Theme.of(context).textTheme.bodyLarge);
   }
 }

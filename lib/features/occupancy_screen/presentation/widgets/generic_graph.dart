@@ -4,12 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class GenericGraph extends StatelessWidget {
-  GenericGraph(
-      {super.key,
-      required this.start,
-      required this.end,
-      required this.data,
-      this.prediction});
+  GenericGraph( {super.key, required this.start, required this.end, required this.data, this.prediction});
 
   int start;
   int end;
@@ -48,11 +43,19 @@ class GenericGraph extends StatelessWidget {
               tooltipBgColor: Theme.of(context).colorScheme.surface,
               tooltipBorder: BorderSide(width: 1.25, color: onSurface),
               getTooltipItems: (touchedSpots) {
+                bool first = true;
                 return touchedSpots.map((e) {
+                  String text = "";
+                  if (first) {
+                    first = false;
+                    text += '${e.x.toInt()}\n';
+                    text += e.barIndex == 0 ? "Occpuancy:\t${e.y.toInt()}" : "Prediction:\t${e.y.toInt()}";
+                  }
+                  else {
+                    text += e.barIndex == 0 ? "Occpuancy:\t${e.y.toInt()}" : "Prediction:\t${e.y.toInt()}";
+                  }
                   return LineTooltipItem(
-                    e.barIndex == 0
-                        ? "Occpuancy:\t${e.y.toInt()}"
-                        : "Prediction:\t${e.y.toInt()}",
+                    text,
                     TextStyle(
                       color: onSurface,
                     ),
@@ -89,17 +92,19 @@ class GenericGraph extends StatelessWidget {
             leftTitles: const AxisTitles(
                 axisNameWidget: Text("Occupancy %"),
                 sideTitles: SideTitles(
-                    showTitles: true, reservedSize: 33, interval: 20)),
+                    showTitles: true, reservedSize: 35, interval: 20)),
             bottomTitles: AxisTitles(
               axisNameWidget: const Text("Time"),
               sideTitles: SideTitles(
                 reservedSize: 30,
                 showTitles: true,
-                interval: 350,
+                // interval: 300,
                 getTitlesWidget: (value, meta) {
                   return SideTitleWidget(
                     axisSide: meta.axisSide,
-                    child: Text(value.toInt().toString()),
+                    child: Text(
+                      value == meta.max || value == meta.min ? '' : value.toInt().toString() 
+                      ),
                   );
                 },
               ),
