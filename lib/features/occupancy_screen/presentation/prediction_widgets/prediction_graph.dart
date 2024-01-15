@@ -30,7 +30,7 @@ class _PredictionGraphState extends ConsumerState<PredictionGraph> {
 
   void setTimings(ScheduleModel sm) {
     final now = ukDateTimeNow().add(const Duration(days: 1));
-    if (!sm.data[now.weekday - 1].$1) {
+    if (sm.data.length < now.weekday - 1 || !sm.data[now.weekday - 1].$1) {
       return;
     }
     start = sm.data[now.weekday - 1].$2;
@@ -53,7 +53,8 @@ class _PredictionGraphState extends ConsumerState<PredictionGraph> {
           return GenericGraph(start: start, end: end, data: data);
         },
         loading: () => CustomShimmer(height: widget.height, width: widget.width, padding: 10),
-        error: (stack, err) => const Icon(Icons.error),
+        error: (stack, err) => CustomShimmer(height: widget.height, width: widget.width, padding: 10),
+        // error: (stack, err) => const Icon(Icons.error),
       ),
     );
   }

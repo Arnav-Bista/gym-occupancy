@@ -21,7 +21,6 @@ class Graph extends ConsumerStatefulWidget {
 class _GraphState extends ConsumerState<Graph> {
   int start = 630;
   int end = 2230;
-  final int threshold = 75;
 
   int maximumOccupancy = 0;
 

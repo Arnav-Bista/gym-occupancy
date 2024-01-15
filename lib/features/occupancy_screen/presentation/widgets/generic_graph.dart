@@ -12,7 +12,7 @@ class GenericGraph extends StatelessWidget {
   List<(int, int)> data;
   List<(int, int)>? prediction;
 
-  final int threshold = 75;
+  final int threshold = 70;
 
   @override
   Widget build(BuildContext context) {
