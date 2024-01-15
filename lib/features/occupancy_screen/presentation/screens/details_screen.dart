@@ -21,8 +21,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
   Widget build(BuildContext context) {
     DateTime date = ukDateTimeNow();
     date = date.subtract(Duration(days: - date.weekday + 1));
-    return 
-        Padding(
+    return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment:  CrossAxisAlignment.center,

@@ -15,9 +15,12 @@ class Prediction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        OccupancyGraph(),
+        OccupancyGraph(
+          height: MediaQuery.of(context).size.height * 0.25,
+          width: MediaQuery.of(context).size.width * 0.9
+        ),
         PredictionGraph(),
       ],
     );

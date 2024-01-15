@@ -8,13 +8,15 @@ import 'package:gym_occupancy/features/occupancy_screen/presentation/widgets/gra
 import 'package:shimmer/shimmer.dart';
 
 class OccupancyGraph extends ConsumerWidget{
-  const OccupancyGraph({super.key});
+  const OccupancyGraph({super.key, required this.height, required this.width});
+
+  final double height;
+  final double width;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(firebaseGraphController);
-    final height= MediaQuery.of(context).size.height * 0.25;
-    final width= MediaQuery.of(context).size.width * 1;
+
     return 
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 200),

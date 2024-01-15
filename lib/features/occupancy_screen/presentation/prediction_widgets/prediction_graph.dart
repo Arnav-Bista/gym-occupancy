@@ -17,24 +17,11 @@ class PredictionGraph extends ConsumerStatefulWidget {
 }
 
 class _PredictionGraphState extends ConsumerState<PredictionGraph> {
-  late TooltipBehavior _tooltipBehavior;
-  late ZoomPanBehavior _zoomPanBehavior;
-
   int start = 600;
   int end = 2230;
 
   @override
   void initState() {
-    _zoomPanBehavior = ZoomPanBehavior(
-      enablePinching: true,
-      enablePanning: true,
-    );
-    _tooltipBehavior = TooltipBehavior(
-      enable: true,
-      canShowMarker: false,
-      opacity: 0.8,
-      // format: 'point.x  point.y %'
-    );
     super.initState();
   }
 
@@ -59,15 +46,15 @@ class _PredictionGraphState extends ConsumerState<PredictionGraph> {
     final width = MediaQuery.of(context).size.width * 1;
 
     return SizedBox(
-        height: height,
-        width: width,
-        child: controller.when(
-          data: (data) {
-            return GenericGraph(start: start, end: end, data: data);
-          },
-          loading: () =>
-              CustomShimmer(height: height, width: width, padding: 10),
-          error: (stack, err) => const Icon(Icons.error),
-        ));
+      height: height,
+      width: width,
+      child: controller.when(
+        data: (data) {
+          return GenericGraph(start: start, end: end, data: data);
+        },
+        loading: () => CustomShimmer(height: height, width: width, padding: 10),
+        error: (stack, err) => const Icon(Icons.error),
+      ),
+    );
   }
 }
